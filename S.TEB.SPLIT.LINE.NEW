@@ -1,0 +1,60 @@
+*-----------------------------------------------------------------------------
+* <Rating>-40</Rating>
+*-----------------------------------------------------------------------------
+    SUBROUTINE S.TEB.SPLIT.LINE.NEW(INC.ARRAY,SPLIT.VAL,SPLIT.DELIMITER,SPLIT.ARRAY)
+*-------------------------------------------------------------------------------------
+* This program will split big lines of text into multiple lines so that the text can
+* be presented with structure in a report.You can split text by any number you want.35
+* 50 whatever.It will take in the number of characters per line number and split it.
+* The program has the intelligence to not split words half way,it will look for
+* spaces , : - and other regex
+*-------------------------------------------------------------------------------------
+    $INSERT I_COMMON
+    $INSERT I_EQUATE
+
+    GOSUB INI
+    GOSUB PROCESS
+    GOSUB RETURN.PROC
+    RETURN
+INI:
+****
+*    CONST.VAL=SPLIT.VAL-2
+    CONST.VAL=SPLIT.VAL
+    ORIG.CONST.VAL=CONST.VAL
+    J=0
+    SPLIT.ARRAY=''
+    LEN.INC.ARRAY=LEN(INC.ARRAY)
+    CHANGE FM TO "" IN INC.ARRAY
+    CHANGE SM TO "" IN INC.ARRAY
+    CHANGE VM TO "" IN INC.ARRAY
+    IF SPLIT.DELIMITER EQ '' THEN
+        SPLIT.DELIMITER=',':VM:" ":VM:"."
+    END
+
+    RETURN
+
+PROCESS:
+*********
+    LOOP
+        IF (J+CONST.VAL) LE LEN.INC.ARRAY THEN
+            IF INC.ARRAY[J+CONST.VAL,1] MATCHES SPLIT.DELIMITER THEN
+                SPLIT.ARRAY<-1>=INC.ARRAY[J+1,CONST.VAL]
+                J=CONST.VAL+J
+                CONST.VAL=SPLIT.VAL
+            END ELSE
+                CONST.VAL--
+            END
+        END ELSE
+            SPLIT.ARRAY<-1>=INC.ARRAY[J+1,LEN.INC.ARRAY-J]
+            BREAK
+        END
+    REPEAT
+
+    RETURN
+
+RETURN.PROC:
+************
+    IF SPLIT.ARRAY THEN
+        CHANGE FM TO VM IN SPLIT.ARRAY
+    END
+ RETURN
