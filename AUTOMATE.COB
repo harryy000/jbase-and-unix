@@ -29,8 +29,7 @@
     READ R.DATA FROM MASTER.PTR,FILE.NAME ELSE
         SRV=''
         SUBJECT= "BACKUP alert"
-*        RCPT= "harish@tebnv.nl"
-        RCPT= "globususernotification@tebnv.nl"
+        RCPT= "abc@abc.nl"
         CHANGE "/" TO " " IN FINAL.BACKUP.DATE
         CHANGE "/" TO " " IN FINAL.UNIX.DATE
         MSG= 'Backup file ':FILE.NAME:' missing'
@@ -63,8 +62,7 @@
     IF FINAL.UNIX.DATE NE FINAL.BACKUP.DATE THEN
         SRV=''
         SUBJECT= "BACKUP alert"
-*        RCPT= "harish@tebnv.nl"
-        RCPT= "globususernotification@tebnv.nl"
+        RCPT= 'abc@abc.nl'
 *        MSG= 'Backup file missing for ':TODAY:"Today's unix date ":FINAL.UNIX.DATE:'.But latest backup taken for ':DAY:' is ':FINAL.BACKUP.DATE
         MSG= 'Backup for today missing ':TODAY:'(':DAY:')':'.Todays unix date is ':FINAL.UNIX.DATE:'.But latest backup date for ':DAY:' is ':FINAL.BACKUP.DATE
 
@@ -80,8 +78,8 @@
     FINDSTR "Below Services are Active" IN OUTPUT SETTING ACTIVE.POS THEN
         SRV=''
         SUBJECT= "CLRSTATUS alert"
-*        RCPT= "harish@tebnv.nl"
-        RCPT= "globususernotification@tebnv.nl"
+
+        RCPT= "abc@abc.nl"
         TOT.OUTPUT=DCOUNT(OUTPUT,FM)
         FOR I=ACTIVE.POS TO TOT.OUTPUT
             SRV<-1>=OUTPUT<I>
@@ -101,8 +99,7 @@
             CRT "COB already run"
             MSG='COB Already run'
             SUBJECT= "EODSTART alert"
-*            RCPT= "harish@tebnv.nl"
-            RCPT= "globususernotification@tebnv.nl"
+            RCPT= "abc@abc.nl"
             CMD=\SH -c "echo '\:MSG:\' | mailx  -s '\:SUBJECT:\' \:RCPT:\"\
             CRT CMD
             EXECUTE CMD
