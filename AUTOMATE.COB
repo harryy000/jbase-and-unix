@@ -3,7 +3,8 @@
 *-----------------------------------------------------------------------------
     PROGRAM AUTOMATE.COB
 *------------------------------------------------------------------------------------------------------------------
-* This is the automatic program that starts cob.So we do the below checks before we start cob
+*  For many years we had 1 person in the bank every nite who had to execute a manual check list to start end * of day processing/cob.He eventually got bored and din't want to do it any more.So I got this responsibility.* I decided to write a script that will do this rather than me sitting and doing it like it was the 1980's.
+* This is the automatic program that starts cob/close of business.So we do the below checks before we start * cob in my bank.
 * If backup is sucessfull a file called TODAY_0 will be created by backup script,we will check that,if it is TODAY_1,then
 * we will stop the process and send an email
 * We check if the backup for today is taken
