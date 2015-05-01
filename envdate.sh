@@ -1,4 +1,11 @@
 #!/bin/bash
+# There are many development environments with different dates in my bank
+# I read all these different envrionments and check what the system dates are
+# and then present them in a readable format so that when issues occur,before
+# we go to the unix tape restoration team we can check if any enviornments 
+# for the date of issue reported already exists.I think this is pretty usefull.
+# Warm regards,
+# Harish
 locs='/u01/globus /u03/globus' 
 echo "\n"
 for fsone in $locs;do
